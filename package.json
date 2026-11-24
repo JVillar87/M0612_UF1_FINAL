@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "ag-grid-community": "^36.3.0",
+    "animejs": "^4.5.0",
+    "driver.js": "^1.14.0",
+    "echarts": "^6.1.0"
+  }
+}

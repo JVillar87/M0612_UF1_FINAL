@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GESTOR DE VIATGES - Projecte JS</title>
+
+  <!-- ESTILS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- DRIVER.JS - GUIA -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.css">
+  <!-- MAPTILER -->
+  <link
+    href="https://cdn.maptiler.com/maptiler-sdk-js/v4.2.1/maptiler-sdk.css"
+    rel="stylesheet">
+
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem("travel-planner-theme");
+      const theme = savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+
+  <script src="https://cdn.maptiler.com/maptiler-sdk-js/v4.2.1/maptiler-sdk.umd.min.js"></script>
+
+  <!-- CHART.JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+  <!-- CAPÇALERA -->
+  <header>
+    <div class="header-info">
+      <h1>GESTOR DE VIATGES</h1>
+      <p>Organitza, planifica i recorda els teus viatges</p>
+    </div>
+
+    <div class="header-actions">
+
+      <!-- WEB COMPONENT -->
+      <task-badge id="global-badge" count="0"></task-badge>
+
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Activar el mode fosc">
+        <span class="theme-icon" aria-hidden="true"></span>
+        <span class="theme-label">Mode fosc</span>
+      </button>
+
+      <!-- DRIVER.JS -->
+      <button
+        type="button"
+        id="start-tour"
+        class="btn-primary help-tour"
+        aria-label="Obrir l'ajuda">
+        HELP
+      </button>
+
+    </div>
+  </header>
+
+
+  <!-- FORMULARI DE VIATGES -->
+  <section class="form-container">
+
+    <h2>Afegir un nou viatge</h2>
+
+    <form id="new-task-form" class="form-group">
+
+      <input
+        type="text"
+        id="task-title-input"
+        placeholder="Destinació (ex: París, França)"
+        required>
+
+      <input
+        type="text"
+        id="task-desc-input"
+        placeholder="Notes del viatge (llocs, activitats, idees...)">
+
+      <select id="task-status-select">
+
+        <option value="todo">Desitjat</option>
+        <option value="in-progress">Planificat</option>
+        <option value="done">Realitzat</option>
+
+      </select>
+
+      <button type="submit" class="btn-primary">
+        Afegir viatge
+      </button>
+
+    </form>
+  </section>
+
+
+  <!-- CONTENIDOR: KANBAN + ESTADÍSTIQUES -->
+  <div class="main-content">
+
+    <!-- KANBAN DE VIATGES -->
+    <section class="kanban-section">
+
+      <h2>Els meus viatges</h2>
+
+      <main class="board" id="board">
+
+        <!-- COLUMNA 1: DESITJATS -->
+        <section class="column" data-status="todo">
+
+          <div class="column-header">
+            <h2>Desitjats</h2>
+            <span class="toggle-icon" aria-hidden="true"></span>
+          </div>
+
+          <div class="column-content" id="todo-list"></div>
+
+        </section>
+
+
+        <!-- COLUMNA 2: PLANIFICATS -->
+        <section class="column" data-status="in-progress">
+
+          <div class="column-header">
+            <h2>Planificats</h2>
+            <span class="toggle-icon" aria-hidden="true"></span>
+          </div>
+
+          <div class="column-content" id="in-progress-list"></div>
+
+        </section>
+
+
+        <!-- COLUMNA 3: REALITZATS -->
+        <section class="column" data-status="done">
+
+          <div class="column-header">
+            <h2>Realitzats</h2>
+            <span class="toggle-icon" aria-hidden="true"></span>
+          </div>
+
+          <div class="column-content" id="done-list"></div>
+
+        </section>
+
+      </main>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section class="dashboard" id="dashboard">
+
+      <h2>Estadístiques dels meus viatges</h2>
+
+      <div class="dashboard-grid">
+
+        <!-- GRÀFIC DE PERCENTATGES -->
+        <div class="chart-container">
+
+          <div class="chart-wrapper">
+            <canvas id="travelChart"></canvas>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <!-- MAPA INTERACTIU: FORA DEL MAIN-CONTENT -->
+  <section class="map-section" id="map-section">
+
+    <div class="map-header">
+
+      <h2 class="map-title">Mapa dels viatges</h2>
+
+    </div>
+
+    <!-- LLEGENDA DEL MAPA -->
+    <div class="map-legend">
+
+      <span class="legend-item">
+        <span class="legend-dot desired"></span>
+        Desitjats
+      </span>
+
+      <span class="legend-item">
+        <span class="legend-dot planned"></span>
+        Planificats
+      </span>
+
+      <span class="legend-item">
+        <span class="legend-dot completed"></span>
+        Realitzats
+      </span>
+
+    </div>
+
+    <!-- CONTENIDOR MAPTILER -->
+    <div id="map"></div>
+
+  </section>
+
+
+  <!-- TEMPLATE DE LES TARGETES -->
+  <template id="task-card-template">
+
+    <article class="task-card" data-task-id="">
+
+      <h3 class="task-title"></h3>
+
+      <p class="task-desc"></p>
+
+      <div class="actions">
+
+        <!-- CANVIAR ESTAT -->
+        <select class="task-status-select">
+
+          <option value="todo">Desitjat</option>
+          <option value="in-progress">Planificat</option>
+          <option value="done">Realitzat</option>
+
+        </select>
+
+
+        <!-- MOURE ENTRE ESTATS -->
+        <button
+          type="button"
+          class="btn-up"
+          aria-label="Pujar viatge"></button>
+
+        <button
+          type="button"
+          class="btn-down"
+          aria-label="Baixar viatge"></button>
+
+        <!-- ELIMINAR -->
+        <button type="button" class="btn-delete">
+          Eliminar
+        </button>
+
+      </div>
+
+    </article>
+
+  </template>
+
+
+  <!-- JAVASCRIPT PRINCIPAL -->
+  <script type="module" src="app.js"></script>
+
+</body>
+</html>
