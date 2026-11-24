@@ -12,7 +12,8 @@ Què pot fer?
 
 Tauler Kanban de viatges (base AC6 ampliada):
 
-Permet crear targetes, reordenar-les dins de la mateixa columna amb les fletxes i canviar-les d'estat amb el desplegable o arrossegant-les (drag & drop). També es poden reordenar les columnes, plegar-les per guanyar espai i canviar entre el mode clar i fosc. Tot queda guardat al navegador amb localStorage perquè no es perdi en recarregar.
+Permet crear targetes, reordenar-les dins de la mateixa columna amb les fletxes i canviar-les d'estat amb el desplegable. 
+També es poden reordenar les columnes, plegar-les per guanyar espai i canviar entre el mode clar i fosc. Tot queda guardat al navegador amb localStorage perquè no es perdi en recarregar.
 
 Funcionalitat 1 — Mapa interactiu i cerca de destinacions (MapTiler SDK - Integració amb ajuda d'IA):
 
