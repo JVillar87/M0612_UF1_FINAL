@@ -1,14 +1,14 @@
-Gestor de Viatges — Kanban Pro (M0612 - Projecte Final)
+##Gestor de Viatges — Kanban Pro (M0612 - Projecte Final)
 
 Aquesta és la nova versió del Kanban que vam fer a l'AC6 i amb la base de la demo de classe, però adaptada per organitzar viatges directament al navegador i pujada a GitHub Pages.
 
-De què va l'aplicació?
+**De què va l'aplicació?**
 
 La idea és tenir un tauler visual per apuntar els llocs on vols anar i organitzar-los en tres columnes (Desitjat, Planificat i Realitzat). 
 Inicialment, el projecte era un Kanban de tasques de l'AC6. Vaig decidir adaptar-lo a un gestor de viatges perquè la integració de MapTiler tingués més sentit (amb el vistiplau del professor). 
 Aprofitant l'estructura que ja teníem (crear targetes, moure-les, reordenar-les, esborrar-les, plegar columnes, canviar entre mode clar/fosc i el comptador de viatges), hi he afegit que tot es guardi al navegador amb localStorage, un mapa interactiu, un gràfic d'estadístiques i una guia ràpida d'ajuda.
 
-Què pot fer?
+**Què pot fer?**
 
 Tauler Kanban de viatges (base AC6 ampliada):
 
@@ -34,7 +34,7 @@ He triat MapTiler SDK JS perquè té estils de mapa molt xulos i funciona direct
 
 La part inicial del mapa, la cerca de coordenades i el gràfic de Chart.js els vaig treure amb l'ajuda d'eines d'intel·ligència artificial (IA). Després em vaig dedicar a repassar el codi, treure coses que sobraven o em complicaven la vida (com un modal d'edició amb <dialog> que hi havia al principi) i adaptar-ho tot perquè quadrés amb el meu Kanban de l'AC6.
 
-Què fa cada peça del codi del mapa
+**Què fa cada peça del codi del mapa**
 
 maptilersdk.config.apiKey: aquí és on li passo la clau de MapTiler perquè ens deixi carregar el mapa i buscar llocs.
 
@@ -51,7 +51,7 @@ travelMap.flyTo({ center, zoom, essential }): dins de focusTrip(), fa l'efecte d
 Cerca de coordenades (geocodeDestination): fa una crida amb fetch() a l'API de geocodificació de MapTiler (https://api.maptiler.com/geocoding/{destinacio}.json) per convertir el text que escriu l'usuari en latitud i longitud (lat, lng).
 Integració amb el Kanban: cada vegada que creo, elimino o canvio l'estat d'un viatge, renderTrips() actualitza les targetes, el comptador, les estadístiques i els marcadors del mapa. Així, el mapa i el gràfic sempre mostren les mateixes dades que el tauler.
 
-Com funciona la guia: Driver.js
+**Com funciona la guia: Driver.js**
 
 Per al tutorial he fet servir Driver.js amb driver() i driverObj.setSteps([...]) dins de startTour(), que s'activa en clicar el botó #start-tour de dalt de tot. El recorregut va assenyalant per ordre les quatre zones clau:
 
@@ -63,7 +63,7 @@ El panell d'estadístiques amb el gràfic (#dashboard).
 
 La secció del mapa interactiu (#map-section).
 
-Què hi ha a cada fitxer
+**Què hi ha a cada fitxer**
 
 index.html: l'estructura de la pàgina, la plantilla <template> per crear targetes i els enllaços a les llibreries.
 
@@ -73,6 +73,6 @@ app.js: tota la lògica del Kanban, el localStorage, el Web Component <task-badg
 
 README.md: aquesta explicació del projecte.
 
-On es pot veure
+**On es pot veure**
 
 El projecte està publicat a GitHub Pages i també es pot executar en local amb Live Server de Visual Studio Code.
