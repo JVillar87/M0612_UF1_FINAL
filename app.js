@@ -197,12 +197,20 @@ function createTripCard(trip) {
 
 
 function moveTrip(trip, direction) {
-  const currentIndex = statusLabels.indexOf(trip.status);
+  const columnTrips = trips.filter(item => item.status === trip.status);
+  const currentIndex = columnTrips.findIndex(item => item.id === trip.id);
   const nextIndex = currentIndex + direction;
 
-  if (nextIndex < 0 || nextIndex >= statusLabels.length) return;
+  if (nextIndex < 0 || nextIndex >= columnTrips.length) return;
 
-  trip.status = statusLabels[nextIndex];
+  // Buscar el viatge amb el qual intercanviar la posició
+  const otherTrip = columnTrips[nextIndex];
+
+  // Trobar les posicions dins de l'array original
+  const index1 = trips.findIndex(item => item.id === trip.id);
+  const index2 = trips.findIndex(item => item.id === otherTrip.id);
+
+  [trips[index1], trips[index2]] = [trips[index2], trips[index1]];
 
   saveTrips();
   renderTrips();

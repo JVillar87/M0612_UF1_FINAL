@@ -4,13 +4,15 @@ Aquesta és la nova versió del Kanban que vam fer a l'AC6 i amb la base de la d
 
 De què va l'aplicació?
 
-La idea és tenir un tauler visual per apuntar els llocs on vols anar i organitzar-los en tres columnes (Desitjat, Planificat i Realitzat). Aprofitant l'estructura que ja teníem (crear targetes, moure-les, reordenar-les, esborrar-les, plegar columnes, fer drag & drop, canviar entre mode clar/fosc i el comptador de viatges), hi he afegit que tot es guardi al navegador amb localStorage, un mapa interactiu, un gràfic d'estadístiques i una guia ràpida d'ajuda.
+La idea és tenir un tauler visual per apuntar els llocs on vols anar i organitzar-los en tres columnes (Desitjat, Planificat i Realitzat). 
+Inicialment, el projecte era un Kanban de tasques de l'AC6. Vaig decidir adaptar-lo a un gestor de viatges perquè la integració de MapTiler tingués més sentit (amb el vistiplau del professor). 
+Aprofitant l'estructura que ja teníem (crear targetes, moure-les, reordenar-les, esborrar-les, plegar columnes, fer drag & drop, canviar entre mode clar/fosc i el comptador de viatges), hi he afegit que tot es guardi al navegador amb localStorage, un mapa interactiu, un gràfic d'estadístiques i una guia ràpida d'ajuda.
 
 Què pot fer?
 
 Tauler Kanban de viatges (base AC6 ampliada):
 
-Permet crear targetes, canviar-les de columna amb el desplegable, amb les fletxes o arrossegant-les (drag & drop), plegar columnes per guanyar espai i canviar el tema clar/fosc. Tot queda guardat al navegador amb localStorage perquè no es perdi en recarregar.
+Permet crear targetes, reordenar-les dins de la mateixa columna amb les fletxes i canviar-les d'estat amb el desplegable o arrossegant-les (drag & drop). També es poden reordenar les columnes, plegar-les per guanyar espai i canviar entre el mode clar i fosc. Tot queda guardat al navegador amb localStorage perquè no es perdi en recarregar.
 
 Funcionalitat 1 — Mapa interactiu i cerca de destinacions (MapTiler SDK - Integració amb ajuda d'IA):
 
@@ -47,6 +49,7 @@ new maptilersdk.Popup({ offset }): és el globus que s'obre quan cliques una xin
 travelMap.flyTo({ center, zoom, essential }): dins de focusTrip(), fa l'efecte de volar suaument pel mapa fins a la ciutat quan cliques sobre el títol d'una targeta del tauler.
 
 Cerca de coordenades (geocodeDestination): fa una crida amb fetch() a l'API de geocodificació de MapTiler (https://api.maptiler.com/geocoding/{destinacio}.json) per convertir el text que escriu l'usuari en latitud i longitud (lat, lng).
+Integració amb el Kanban: cada vegada que creo, elimino o canvio l'estat d'un viatge, renderTrips() actualitza les targetes, el comptador, les estadístiques i els marcadors del mapa. Així, el mapa i el gràfic sempre mostren les mateixes dades que el tauler.
 
 Com funciona la guia: Driver.js
 
