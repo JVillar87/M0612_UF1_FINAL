@@ -1,4 +1,4 @@
-##Gestor de Viatges — Kanban Pro (M0612 - Projecte Final)
+## Gestor de Viatges — Kanban Pro (M0612 - Projecte Final)
 
 Aquesta és la nova versió del Kanban que vam fer a l'AC6 i amb la base de la demo de classe, però adaptada per organitzar viatges directament al navegador i pujada a GitHub Pages.
 
@@ -10,7 +10,7 @@ Aprofitant l'estructura que ja teníem (crear targetes, moure-les, reordenar-les
 
 **Què pot fer?**
 
-Tauler Kanban de viatges (base AC6 ampliada):
+_Tauler Kanban de viatges (base AC6 ampliada):_
 
 Permet crear targetes, reordenar-les dins de la mateixa columna amb les fletxes i canviar-les d'estat amb el desplegable. 
 També es poden plegar i desplegar les columnes per guanyar espai i canviar entre el mode clar i fosc. Tot queda guardat al navegador amb localStorage perquè no es perdi en recarregar.
@@ -18,11 +18,11 @@ Funcionalitat 1 — Mapa interactiu i cerca de destinacions (MapTiler SDK - Inte
 
 Mostra tots els viatges en un mapa mundial amb xinxetes de colors segons l'estat de cada viatge. Quan escrius una ciutat o país al formulari, busca les coordenades automàticament i la col·loca al mapa.
 
-Estadístiques en temps real (Chart.js - Integració amb ajuda d'IA):
+_Estadístiques en temps real (Chart.js - Integració amb ajuda d'IA):_
 
 Un gràfic circular (doughnut) que calcula al moment el percentatge de viatges que tens en cada estat.
 
-Funcionalitat 2 — Tutorial interactiu d'ajuda (Driver.js):
+_Funcionalitat 2 — Tutorial interactiu d'ajuda (Driver.js):_
 
 Si prems el botó HELP, s'obre una guia pas a pas que t'ensenya com funciona cada part de la web sense haver d'anar endevinant-ho.
 
@@ -36,19 +36,19 @@ La part inicial del mapa, la cerca de coordenades i el gràfic de Chart.js els v
 
 **Què fa cada peça del codi del mapa**
 
-maptilersdk.config.apiKey: aquí és on li passo la clau de MapTiler perquè ens deixi carregar el mapa i buscar llocs.
+_maptilersdk.config.apiKey:_ aquí és on li passo la clau de MapTiler perquè ens deixi carregar el mapa i buscar llocs.
 
-new maptilersdk.Map(options): dins de initMap(), s'encarrega de dibuixar el mapa dins del <div id="map">, triant l'estil (STREETS), on comença centrat i el zoom inicial.
+_new maptilersdk.Map(options):_ dins de initMap(), s'encarrega de dibuixar el mapa dins del <div id="map">, triant l'estil (STREETS), on comença centrat i el zoom inicial.
 
-travelMap.on("load" / "error", callback): serveix per esperar que el mapa acabi de carregar abans de pintar les xinxetes (renderMarkers()) i per avisar per consola si alguna cosa falla.
+_travelMap.on("load" / "error", callback):_ serveix per esperar que el mapa acabi de carregar abans de pintar les xinxetes (renderMarkers()) i per avisar per consola si alguna cosa falla.
 
-new maptilersdk.Marker({ color }): crea cada marcador al mapa amb el color que toca segons l'estat del viatge (#eab308 groc per a Desitjat, #3b82f6 blau per a Planificat i #22c55e verd per a Realitzat), el col·loca a les seves coordenades (.setLngLat()) i li enganxa la targeteta informativa (.setPopup()).
+_new maptilersdk.Marker({ color }):_ crea cada marcador al mapa amb el color que toca segons l'estat del viatge (#eab308 groc per a Desitjat, #3b82f6 blau per a Planificat i #22c55e verd per a Realitzat), el col·loca a les seves coordenades (.setLngLat()) i li enganxa la targeteta informativa (.setPopup()).
 
-new maptilersdk.Popup({ offset }): és el globus que s'obre quan cliques una xinxeta o el nom d'un viatge, on es veu el títol, les notes i l'estat.
+_new maptilersdk.Popup({ offset }):_ és el globus que s'obre quan cliques una xinxeta o el nom d'un viatge, on es veu el títol, les notes i l'estat.
 
-travelMap.flyTo({ center, zoom, essential }): dins de focusTrip(), fa l'efecte de volar suaument pel mapa fins a la ciutat quan cliques sobre el títol d'una targeta del tauler.
+_travelMap.flyTo({ center, zoom, essential }):_ dins de focusTrip(), fa l'efecte de volar suaument pel mapa fins a la ciutat quan cliques sobre el títol d'una targeta del tauler.
 
-Cerca de coordenades (geocodeDestination): fa una crida amb fetch() a l'API de geocodificació de MapTiler (https://api.maptiler.com/geocoding/{destinacio}.json) per convertir el text que escriu l'usuari en latitud i longitud (lat, lng).
+_Cerca de coordenades (geocodeDestination):_ fa una crida amb fetch() a l'API de geocodificació de MapTiler (https://api.maptiler.com/geocoding/{destinacio}.json) per convertir el text que escriu l'usuari en latitud i longitud (lat, lng).
 Integració amb el Kanban: cada vegada que creo, elimino o canvio l'estat d'un viatge, renderTrips() actualitza les targetes, el comptador, les estadístiques i els marcadors del mapa. Així, el mapa i el gràfic sempre mostren les mateixes dades que el tauler.
 
 **Com funciona la guia: Driver.js**
@@ -65,13 +65,13 @@ La secció del mapa interactiu (#map-section).
 
 **Què hi ha a cada fitxer**
 
-index.html: l'estructura de la pàgina, la plantilla <template> per crear targetes i els enllaços a les llibreries.
+_index.html:_ l'estructura de la pàgina, la plantilla <template> per crear targetes i els enllaços a les llibreries.
 
-styles.css: els estils, els colors del mode clar/fosc i l'adaptació a diferents mides de pantalla.
+_styles.css:_ els estils, els colors del mode clar/fosc i l'adaptació a diferents mides de pantalla.
 
-app.js: tota la lògica del Kanban, el localStorage, el Web Component <task-badge>, el mapa amb MapTiler, el gràfic amb Chart.js i el tutorial de Driver.js.
+_app.js:_ tota la lògica del Kanban, el localStorage, el Web Component <task-badge>, el mapa amb MapTiler, el gràfic amb Chart.js i el tutorial de Driver.js.
 
-README.md: aquesta explicació del projecte.
+_README.md:_ aquesta explicació del projecte.
 
 **On es pot veure**
 
