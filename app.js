@@ -176,7 +176,7 @@ function createTripCard(trip) {
   });
 
 
-  // MOURE ENTRE COLUMNES
+  // PUJAR I BAIXAR VIATGES DINS DE LA MATEIXA COLUMNA
   card.querySelector(".btn-up").addEventListener("click", () => {
     moveTrip(trip, -1);
   });
@@ -194,6 +194,7 @@ function createTripCard(trip) {
 
   return fragment;
 }
+
 
 function moveTrip(trip, direction) {
   const currentIndex = statusLabels.indexOf(trip.status);

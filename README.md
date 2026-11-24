@@ -1,6 +1,6 @@
 Gestor de Viatges — Kanban Pro (M0612 - Projecte Final)
 
-Aquesta és la nova versió del Kanban que vam fer a l'AC6 i amb la base de la demo de classe (demo_flask), però adaptada per organitzar viatges directament al navegador i pujada a GitHub Pages.
+Aquesta és la nova versió del Kanban que vam fer a l'AC6 i amb la base de la demo de classe, però adaptada per organitzar viatges directament al navegador i pujada a GitHub Pages.
 
 De què va l'aplicació?
 
