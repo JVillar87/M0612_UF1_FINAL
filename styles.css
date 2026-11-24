@@ -201,18 +201,6 @@ button.btn-delete:hover {
   background-color: rgba(239, 68, 68, 0.1);
 }
 
-button.btn-edit {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-button.btn-secondary {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-}
 
 /* FORMULARI */
 .form-container {
@@ -571,45 +559,6 @@ select:focus {
   margin-top: 0.4rem;
   color: var(--text-muted);
   font-size: 0.85rem;
-}
-
-/* MODAL D'EDICIÓ */
-.edit-trip-dialog {
-  width: min(420px, calc(100vw - 2rem));
-  margin: auto;
-  background-color: var(--card-bg);
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 0;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
-}
-
-.edit-trip-dialog::backdrop {
-  background: rgba(15, 23, 42, 0.45);
-}
-
-.edit-trip-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 1.25rem;
-}
-
-.edit-trip-form h2 {
-  margin-bottom: 0.25rem;
-}
-
-.edit-trip-form label {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.edit-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
 }
 
 /* RESPONSIVE: TABLETS */
