@@ -2,7 +2,6 @@ import { driver } from "https://cdn.jsdelivr.net/npm/driver.js@latest/dist/drive
 
 // CONFIGURACIÓ
 const STORAGE_KEY = "travel-planner-trips";
-const COLUMN_ORDER_KEY = "travel-planner-column-order";
 const statusLabels = ["todo", "in-progress", "done"];
 
 const statusNames = {
@@ -154,16 +153,6 @@ function createTripCard(trip) {
     card.classList.add("selected");
   });
 
-  card.addEventListener("dragstart", event => {
-    event.stopPropagation();
-    event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("text/trip-id", trip.id);
-    card.classList.add("dragging");
-  });
-
-  card.addEventListener("dragend", () => {
-    card.classList.remove("dragging");
-  });
 
   // CANVIAR ESTAT
   const statusSelect = card.querySelector(".task-status-select");
@@ -441,86 +430,6 @@ document.querySelectorAll(".column-header").forEach(header => {
   });
 });
 
-function setupDragAndDrop() {
-  const savedOrder = JSON.parse(
-    localStorage.getItem(COLUMN_ORDER_KEY) || "[]"
-  );
-  const board = document.querySelector("#board");
-
-  if (Array.isArray(savedOrder)) {
-    savedOrder.forEach(status => {
-      const column = board?.querySelector(
-        `.column[data-status="${status}"]`
-      );
-      if (column) board.append(column);
-    });
-  }
-
-  document.querySelectorAll(".column").forEach(column => {
-    const header = column.querySelector(".column-header");
-    const content = column.querySelector(".column-content");
-    header.draggable = true;
-
-    header.addEventListener("dragstart", event => {
-      event.stopPropagation();
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/column-status", column.dataset.status);
-      column.classList.add("dragging-column");
-    });
-
-    header.addEventListener("dragend", () => {
-      column.classList.remove("dragging-column");
-    });
-
-    column.addEventListener("dragover", event => {
-      const types = Array.from(event.dataTransfer.types);
-
-      if (types.includes("text/trip-id")) {
-        event.preventDefault();
-        content.classList.add("drag-over");
-      }
-
-      if (types.includes("text/column-status")) {
-        event.preventDefault();
-      }
-    });
-
-    column.addEventListener("dragleave", event => {
-      if (!column.contains(event.relatedTarget)) {
-        content.classList.remove("drag-over");
-      }
-    });
-
-    column.addEventListener("drop", event => {
-      event.preventDefault();
-      content.classList.remove("drag-over");
-
-      const tripId = event.dataTransfer.getData("text/trip-id");
-      if (tripId) {
-        const trip = trips.find(item => item.id === tripId);
-        if (trip) {
-          trip.status = column.dataset.status;
-          saveTrips();
-          renderTrips();
-        }
-        return;
-      }
-
-      const sourceStatus = event.dataTransfer.getData("text/column-status");
-      if (sourceStatus && sourceStatus !== column.dataset.status) {
-        const board = document.querySelector("#board");
-        const sourceColumn = board.querySelector(
-          `.column[data-status="${sourceStatus}"]`
-        );
-        board.insertBefore(sourceColumn, column);
-
-        const columnOrder = Array.from(board.querySelectorAll(".column"))
-          .map(item => item.dataset.status);
-        localStorage.setItem(COLUMN_ORDER_KEY, JSON.stringify(columnOrder));
-      }
-    });
-  });
-}
 
 // DRIVER.JS
 function startTour() {
@@ -604,4 +513,3 @@ themeToggle?.addEventListener("click", () => {
 initChart();
 renderTrips();
 initMap();
-setupDragAndDrop();

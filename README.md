@@ -6,15 +6,14 @@ De què va l'aplicació?
 
 La idea és tenir un tauler visual per apuntar els llocs on vols anar i organitzar-los en tres columnes (Desitjat, Planificat i Realitzat). 
 Inicialment, el projecte era un Kanban de tasques de l'AC6. Vaig decidir adaptar-lo a un gestor de viatges perquè la integració de MapTiler tingués més sentit (amb el vistiplau del professor). 
-Aprofitant l'estructura que ja teníem (crear targetes, moure-les, reordenar-les, esborrar-les, plegar columnes, fer drag & drop, canviar entre mode clar/fosc i el comptador de viatges), hi he afegit que tot es guardi al navegador amb localStorage, un mapa interactiu, un gràfic d'estadístiques i una guia ràpida d'ajuda.
+Aprofitant l'estructura que ja teníem (crear targetes, moure-les, reordenar-les, esborrar-les, plegar columnes, canviar entre mode clar/fosc i el comptador de viatges), hi he afegit que tot es guardi al navegador amb localStorage, un mapa interactiu, un gràfic d'estadístiques i una guia ràpida d'ajuda.
 
 Què pot fer?
 
 Tauler Kanban de viatges (base AC6 ampliada):
 
 Permet crear targetes, reordenar-les dins de la mateixa columna amb les fletxes i canviar-les d'estat amb el desplegable. 
-També es poden reordenar les columnes, plegar-les per guanyar espai i canviar entre el mode clar i fosc. Tot queda guardat al navegador amb localStorage perquè no es perdi en recarregar.
-
+També es poden plegar i desplegar les columnes per guanyar espai i canviar entre el mode clar i fosc. Tot queda guardat al navegador amb localStorage perquè no es perdi en recarregar.
 Funcionalitat 1 — Mapa interactiu i cerca de destinacions (MapTiler SDK - Integració amb ajuda d'IA):
 
 Mostra tots els viatges en un mapa mundial amb xinxetes de colors segons l'estat de cada viatge. Quan escrius una ciutat o país al formulari, busca les coordenades automàticament i la col·loca al mapa.

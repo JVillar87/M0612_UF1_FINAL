@@ -293,14 +293,6 @@ select:focus {
   border-bottom: 1px solid var(--border-color);
 }
 
-.column-header[draggable="true"] {
-  cursor: grab;
-}
-
-.column.dragging-column {
-  opacity: 0.55;
-}
-
 .column-header h2 {
   font-size: 1rem;
   font-weight: 600;
@@ -338,14 +330,6 @@ select:focus {
   outline-offset: 2px;
 }
 
-.task-card.dragging {
-  opacity: 0.5;
-}
-
-.column-content.drag-over {
-  background-color: #eef2ff;
-  border-radius: 6px;
-}
 
 .task-card.desired {
   border-left: 4px solid var(--desired);
