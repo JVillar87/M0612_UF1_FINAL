@@ -75,4 +75,4 @@ README.md: aquesta explicació del projecte.
 
 On es pot veure
 
-Com que tot funciona amb HTML, CSS i JavaScript estàtic, no cal instal·lar res: es pot obrir directe al navegador i està publicat a GitHub Pages.
+El projecte està publicat a GitHub Pages i també es pot executar en local amb Live Server de Visual Studio Code.
